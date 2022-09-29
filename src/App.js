@@ -48,7 +48,26 @@ return (
 
 function ChatRoom() {
   return (
-    <h1>Welcome to chatroom</h1>
+    <header>
+      <ChatRoomHead />
+    </header>
+  )
+}
+
+function ChatRoomHead() {
+  return (
+    <><div>Chats</div><Logout /></>
+  )
+}
+
+function Logout() {
+ const logout = () =>{
+  sessionStorage.removeItem('me');
+  window.location.reload();
+ }
+  return (
+    <Button onClick={logout} variant="contained" >Logout</Button>
+
   )
 }
 
