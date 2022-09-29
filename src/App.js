@@ -3,8 +3,13 @@ import './App.css';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
+
 function App() {
   const user = sessionStorage.getItem('me');
+
+    // localStorage.setItem('messages', JSON.stringify([
+    // {user: sessionStorage.getItem('me'), message: 'hi', createdAt: Date.now()},
+    // {user: sessionStorage.getItem('me'), message: 'hello', createdAt: Date.now()}]));
   
   return (
     <div className="App">
@@ -40,23 +45,49 @@ return (
 
         />
         <br></br>
-        <Button onClick={login} variant="contained" >Go</Button>
+        <Button onClick={login} disabled={!userName} variant="contained" >Go</Button>
   </header>
 
 )
 }
 
 function ChatRoom() {
+const [messages] = JSON.parse(localStorage.getItem('messages'));
+console.log(messages);
+const sendMessage = async (event) => {
+  event.preventDefault();
+  const message = {
+    user: sessionStorage.getItem('me'),
+    message: formValue,
+    createdAt: Date.now()
+  };
+  
+
+}
+const [formValue, setFormValue] = useState('');
+ 
   return (
+  <div className='App'>
     <header>
       <ChatRoomHead />
     </header>
+    <form onSubmit={sendMessage}>
+    <input value={formValue} onChange={(message) => setFormValue(message.target.value)} placeholder="say something nice" />
+
+    <button type="submit" disabled={!formValue}>🕊️</button>
+    </form>
+  </div>
+    
   )
 }
 
 function ChatRoomHead() {
   return (
-    <><div>Chats</div><Logout /></>
+    <>
+    <div>Chats</div>
+    <Logout />
+    
+    </>
   )
 }
 
