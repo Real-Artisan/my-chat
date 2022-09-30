@@ -121,7 +121,7 @@ setFormValue('');
     <main className='mt-100'>
       {messages && messages.map( (msg, i) => <EachMessage key={i} message={msg} />)}
     </main>
-    <span ref={space}></span>
+    <span className='empty-space' ref={space}></span>
     <form onSubmit={sendMessage}>
 
     <textarea value={formValue} onChange={(message) => setFormValue(message.target.value)} placeholder="Type Message" />
