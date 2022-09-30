@@ -1,8 +1,8 @@
-import React,{useState} from 'react';
+import React,{useEffect, useRef, useState} from 'react';
 import './App.css';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-
+import Avatar from '@mui/material/Avatar';
 
 function App() {
   const user = sessionStorage.getItem('me');
@@ -52,9 +52,20 @@ return (
 }
 
 function ChatRoom() {
+const space = useRef();
+// space.current.scrollIntoView({ behaviour: 'smooth'});
 
 if(JSON.parse(localStorage.getItem('messages')))
 {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  // var [ messages, setMessages] = useState([]);
+  // // eslint-disable-next-line react-hooks/rules-of-hooks
+  // useEffect(() => {
+  //   var messages = JSON.parse(localStorage.getItem('messages'));
+  //   if(messages) {
+  //     setMessages(messages)
+  //   }
+  // }, [])
   var messages = JSON.parse(localStorage.getItem('messages'));
 }
 else {
@@ -64,6 +75,9 @@ else {
 
 
 const [formValue, setFormValue] = useState('');
+
+
+
 
 
 
@@ -90,7 +104,13 @@ localStorage.setItem('messages', JSON.stringify(j));
 }
 else {
 localStorage.setItem('messages', JSON.stringify([message]));
+
 }
+// eslint-disable-next-line no-undef
+
+space.current.scrollIntoView({ behavior: 'smooth'});
+
+
 setFormValue('');
 
 
@@ -105,15 +125,15 @@ setFormValue('');
       <ChatRoomHead />
     </header>
 
-    <main>
-      {messages && messages.map( msg => <EachMessage key={msg.id} message={msg} />)}
+    <main className='mt-100'>
+      {messages && messages.map( (msg, i) => <EachMessage key={i} message={msg} />)}
     </main>
-
+    <span ref={space}></span>
     <form onSubmit={sendMessage}>
 
-    <input value={formValue} onChange={(message) => setFormValue(message.target.value)} placeholder="say something nice" />
-
-    <button type="submit" disabled={!formValue}>🕊️</button>
+    <textarea value={formValue} onChange={(message) => setFormValue(message.target.value)} placeholder="Type Message" />
+    
+    <button className='sendMessage' type="submit" disabled={!formValue}>Send</button>
 
     </form>
   </div>
@@ -123,27 +143,56 @@ setFormValue('');
 
 function ChatRoomHead() {
   return (
-    <>
-    <div>Chats</div>
+    <div className='nav-bar'>
+    <div className='title'>Chats</div>
     <Logout />
     
-    </>
+    </div>
   )
 }
 
 function EachMessage(props) {
-  const { message, user, profilePic } = props.message;
+  const { message, user, } = props.message;
 
   const messageClass = user === sessionStorage.getItem('me') ? 'sent' : 'received';
 
   return (
-    <>
+    <div>
     <div className={`message ${messageClass}`} >
-      <img src={profilePic || 'avatar'} alt='pic' />
+    <Avatar {...stringAvatar(user)} />
       <p>{message}</p>
     </div>
-    </>
+    </div>
   )
+}
+
+function stringToColor(string) {
+  let hash = 0;
+  let i;
+
+  /* eslint-disable no-bitwise */
+  for (i = 0; i < string.length; i += 1) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  let color = '#';
+
+  for (i = 0; i < 3; i += 1) {
+    const value = (hash >> (i * 8)) & 0xff;
+    color += `00${value.toString(16)}`.slice(-2);
+  }
+  /* eslint-enable no-bitwise */
+
+  return color;
+}
+
+function stringAvatar(name) {
+  return {
+    sx: {
+      bgcolor: stringToColor(name),
+    },
+    children: `${name.split(' ')[0][0]}`,
+  };
 }
 
 function Logout() {
@@ -152,7 +201,7 @@ function Logout() {
   window.location.reload();
  }
   return (
-    <Button onClick={logout} variant="contained" >Logout</Button>
+    <button className='logout' onClick={logout} variant="contained" >Logout</button>
 
   )
 }
