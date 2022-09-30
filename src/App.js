@@ -52,19 +52,50 @@ return (
 }
 
 function ChatRoom() {
-const [messages] = JSON.parse(localStorage.getItem('messages'));
-console.log(messages);
+
+if(JSON.parse(localStorage.getItem('messages')))
+{
+  var messages = JSON.parse(localStorage.getItem('messages'));
+}
+else {
+  // const m = 'no messages';
+  // console.log(m)
+}
+
+
+const [formValue, setFormValue] = useState('');
+
+
+
+
+
 const sendMessage = async (event) => {
   event.preventDefault();
   const message = {
     user: sessionStorage.getItem('me'),
     message: formValue,
+    profilePic: '',
     createdAt: Date.now()
   };
-  
+
+
+if(messages)
+{
+
+const i = messages
+const j = [...i, message];
+
+localStorage.setItem('messages', JSON.stringify(j));
 
 }
-const [formValue, setFormValue] = useState('');
+else {
+localStorage.setItem('messages', JSON.stringify([message]));
+}
+setFormValue('');
+
+
+  
+}
  
   return (
   <div className='App'>
