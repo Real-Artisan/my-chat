@@ -99,13 +99,22 @@ setFormValue('');
  
   return (
   <div className='App'>
+
+
     <header>
       <ChatRoomHead />
     </header>
+
+    <main>
+      {messages && messages.map( msg => <EachMessage key={msg.id} message={msg} />)}
+    </main>
+
     <form onSubmit={sendMessage}>
+
     <input value={formValue} onChange={(message) => setFormValue(message.target.value)} placeholder="say something nice" />
 
     <button type="submit" disabled={!formValue}>🕊️</button>
+
     </form>
   </div>
     
@@ -118,6 +127,21 @@ function ChatRoomHead() {
     <div>Chats</div>
     <Logout />
     
+    </>
+  )
+}
+
+function EachMessage(props) {
+  const { message, user, profilePic } = props.message;
+
+  const messageClass = user === sessionStorage.getItem('me') ? 'sent' : 'received';
+
+  return (
+    <>
+    <div className={`message ${messageClass}`} >
+      <img src={profilePic || 'avatar'} alt='pic' />
+      <p>{message}</p>
+    </div>
     </>
   )
 }
