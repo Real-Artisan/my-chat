@@ -9,10 +9,7 @@ function App() {
   window.addEventListener('storage', (() => {
     window.location.reload();
   }))
-    // localStorage.setItem('messages', JSON.stringify([
-    // {user: sessionStorage.getItem('me'), message: 'hi', createdAt: Date.now()},
-    // {user: sessionStorage.getItem('me'), message: 'hello', createdAt: Date.now()}]));
-  
+
   return (
     <div className="App">
       <header>
@@ -61,15 +58,7 @@ const space = useRef();
 
 if(JSON.parse(localStorage.getItem('messages')))
 {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  // var [ messages, setMessages] = useState([]);
-  // // eslint-disable-next-line react-hooks/rules-of-hooks
-  // useEffect(() => {
-  //   var messages = JSON.parse(localStorage.getItem('messages'));
-  //   if(messages) {
-  //     setMessages(messages)
-  //   }
-  // }, [])
+
   var messages = JSON.parse(localStorage.getItem('messages'));
 }
 else {
@@ -101,7 +90,7 @@ if(messages)
 {
 
 const i = messages
-const j = [...i, message];
+const j = [message, ...i ];
 
 localStorage.setItem('messages', JSON.stringify(j));
 
