@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  margin: 0 auto;
+  max-width: 728px;
 }
 
 .App-logo {
@@ -14,7 +16,6 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -27,6 +28,15 @@
 .App-link {
   color: #61dafb;
 }
+.name {
+  font-weight: bold;
+  color: #000;
+}
+
+.input {
+  color: white;
+  outline: white; 
+}
 
 @keyframes App-logo-spin {
   from {
@@ -35,4 +45,106 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+main {
+  padding: 10px;
+  height: 85vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.nav-bar {
+  height: 5vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  box-shadow: 0 4px 2px -2px gray;
+  padding-top: 10px;
+
+}
+.title
+{
+  margin-left: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.logout
+{
+  background: none;
+  border: none;
+  color: #0b93f6;
+  margin-right: 20px;
+}
+
+p {
+  max-width: 500px;
+  margin-bottom: 7px;
+  line-height: 24px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  position: relative;
+  color: white;
+  text-align: center;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+}
+
+
+
+.sent {
+  flex-direction: row-reverse;
+}
+
+.sent p {
+  color: white;
+  background: #0b93f6;
+  align-self: flex-end;
+}
+.received p {
+  background: #e5e5ea;
+  color: black;
+}
+form 
+{
+  position: absolute;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  margin: auto;
+  height: 7vh;
+  align-items: center;
+  background-color: #0b93f6;
+  max-width: 728px;
+}
+textarea {
+  width: 70%;
+  border: none;
+  height: 34px;
+  background-color: lightgray;
+  margin-top: 6px;
+  margin-left: 30px;
+  font-size: large;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+textarea:focus {
+  outline: none;
+}
+.sendMessage {
+  display: block;
+  margin-top: 6px;
+  height: 40px;
+  border: 1px solid #0b93f6;
+  border-radius: 10px;
+  margin-left: 20px;
+}
+.empty-space
+{
+  margin-bottom: 7vh;
 }
