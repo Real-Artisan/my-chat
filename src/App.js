@@ -1,4 +1,4 @@
-import React,{useEffect, useRef, useState} from 'react';
+import React,{useEffect, useRef, useState, useCallback} from 'react';
 import './App.css';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -6,7 +6,9 @@ import Avatar from '@mui/material/Avatar';
 
 function App() {
   const user = sessionStorage.getItem('me');
-
+  window.addEventListener('storage', (() => {
+    window.location.reload();
+  }))
     // localStorage.setItem('messages', JSON.stringify([
     // {user: sessionStorage.getItem('me'), message: 'hi', createdAt: Date.now()},
     // {user: sessionStorage.getItem('me'), message: 'hello', createdAt: Date.now()}]));
@@ -50,6 +52,8 @@ return (
 
 )
 }
+
+
 
 function ChatRoom() {
 const space = useRef();
